@@ -10,7 +10,7 @@ define outset::loginonce(
     }
     
     if $ensure == 'present'{
-        file {"/usr/local/outset/login-once/${priority}-${title}":
+        file {"/usr/local/outset/login-once/${priority}-${title}.sh":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,7 +19,7 @@ define outset::loginonce(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/login-once/${priority}-${title}":
+        file {"/usr/local/outset/login-once/${priority}-${title}.sh":
             ensure => absent,
         }
     }

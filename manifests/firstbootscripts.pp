@@ -10,7 +10,7 @@ define outset::firstbootscripts(
     }
 
     if $ensure == 'present'{
-        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}":
+        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}.sh":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,7 +19,7 @@ define outset::firstbootscripts(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}":
+        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}.sh":
             ensure => absent,
         }
     }

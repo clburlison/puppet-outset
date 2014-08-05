@@ -10,7 +10,7 @@ define outset::loginevery(
     }
 
     if $ensure == 'present'{
-        file {"/usr/local/outset/login-every/${priority}-${title}":
+        file {"/usr/local/outset/login-every/${priority}-${title}.sh":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,7 +19,7 @@ define outset::loginevery(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/login-every/${priority}-${title}":
+        file {"/usr/local/outset/login-every/${priority}-${title}.sh":
             ensure => absent,
         }
     }
