@@ -1,4 +1,5 @@
-define outset::firstbootscripts(
+# Manifest for easily adding firstboot packages.
+define outset::firstboot_package(
     $script,
     $priority = '10',
     $ensure = 'present'
@@ -8,9 +9,13 @@ define outset::firstbootscripts(
     if $ensure != 'present' and $ensure !='absent'{
         fail('Invalid value for ensure')
     }
+    
+    if $title !~ /^.*\.(|pkg|PKG)$/ {
+        fail('Invalid value for title. Must end in .pkg')
+    }
 
     if $ensure == 'present'{
-        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}.sh":
+        file {"/usr/local/outset/firstboot-packages/${priority}-${title}":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,9 +24,8 @@ define outset::firstbootscripts(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}.sh":
+        file {"/usr/local/outset/firstboot-packages/${priority}-${title}":
             ensure => absent,
         }
     }
-
 }

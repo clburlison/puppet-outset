@@ -1,4 +1,5 @@
-define outset::everybootscripts(
+# Manifest for easily adding everyboot scripts.
+define outset::everyboot(
     $script,
     $priority = '10',
     $ensure = 'present'
@@ -9,8 +10,12 @@ define outset::everybootscripts(
         fail('Invalid value for ensure')
     }
 
+    if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
+        fail('Invalid value for title. Must end in .py, .sh or .rb')
+    }
+
     if $ensure == 'present'{
-        file {"/usr/local/outset/everyboot-scripts/${priority}-${title}.sh":
+        file {"/usr/local/outset/everyboot-scripts/${priority}-${title}":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,9 +24,8 @@ define outset::everybootscripts(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/everyboot-scripts/${priority}-${title}.sh":
+        file {"/usr/local/outset/everyboot-scripts/${priority}-${title}":
             ensure => absent,
         }
     }
-
 }

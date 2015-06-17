@@ -1,3 +1,4 @@
+# Setup manifest for installing Outset.
 class outset::setup{
     file {'/Library/LaunchAgents/com.github.outset.login.plist':
         owner  => root,
@@ -5,7 +6,7 @@ class outset::setup{
         mode   => '0644',
         source => 'puppet:///modules/outset/com.github.outset.login.plist'
     }
-	
+
     file {'/Library/LaunchDaemons/com.github.outset.boot.plist':
         owner  => root,
         group  => wheel,
@@ -24,31 +25,31 @@ class outset::setup{
         ensure => directory,
       }
     }
-	
+
     if ! defined(File['/usr/local/outset/everyboot-scripts']) {
       file { '/usr/local/outset/everyboot-scripts':
         ensure => directory,
       }
     }
-	
+
     if ! defined(File['/usr/local/outset/firstboot-packages']) {
       file { '/usr/local/outset/firstboot-packages':
         ensure => directory,
       }
     }
-	
+
     if ! defined(File['/usr/local/outset/firstboot-scripts']) {
       file { '/usr/local/outset/firstboot-scripts':
         ensure => directory,
       }
     }
-	
+
     if ! defined(File['/usr/local/outset/login-every']) {
       file { '/usr/local/outset/login-every':
         ensure => directory,
       }
     }
-	
+
     if ! defined(File['/usr/local/outset/login-once']) {
       file { '/usr/local/outset/login-once':
         ensure => directory,
@@ -61,5 +62,11 @@ class outset::setup{
         mode   => '0755',
         source => 'puppet:///modules/outset/outset'
     }
-
+    
+    file{'/usr/local/outset/remove_once.sh':
+        owner  => root,
+        group  => wheel,
+        mode   => '0755',
+        source => 'puppet:///modules/outset/remove_once.sh'
+    }
 }

@@ -1,4 +1,5 @@
-define outset::loginevery(
+# Manifest for easily adding login every scripts.
+define outset::login_every(
     $script,
     $priority = '10',
     $ensure = 'present'
@@ -9,8 +10,12 @@ define outset::loginevery(
         fail('Invalid value for ensure')
     }
 
+    if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
+        fail('Invalid value for title. Must end in .py, .sh or .rb')
+    }
+
     if $ensure == 'present'{
-        file {"/usr/local/outset/login-every/${priority}-${title}.sh":
+        file {"/usr/local/outset/login-every/${priority}-${title}":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,9 +24,8 @@ define outset::loginevery(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/login-every/${priority}-${title}.sh":
+        file {"/usr/local/outset/login-every/${priority}-${title}":
             ensure => absent,
         }
     }
-
 }

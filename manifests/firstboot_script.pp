@@ -1,4 +1,5 @@
-define outset::loginonce(
+# Manifest for easily adding firstboot scripts.
+define outset::firstboot_script(
     $script,
     $priority = '10',
     $ensure = 'present'
@@ -8,9 +9,13 @@ define outset::loginonce(
     if $ensure != 'present' and $ensure !='absent'{
         fail('Invalid value for ensure')
     }
-    
+
+    if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
+        fail('Invalid value for title. Must end in .py, .sh or .rb')
+    }
+
     if $ensure == 'present'{
-        file {"/usr/local/outset/login-once/${priority}-${title}.sh":
+        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}":
             source => $script,
             owner  => 0,
             group  => 0,
@@ -19,7 +24,7 @@ define outset::loginonce(
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/login-once/${priority}-${title}.sh":
+        file {"/usr/local/outset/firstboot-scripts/${priority}-${title}":
             ensure => absent,
         }
     }
