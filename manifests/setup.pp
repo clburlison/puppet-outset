@@ -46,12 +46,6 @@ class outset::setup{
       }
     }
 
-    if ! defined(File['/usr/local/outset/FoundationPlist']) {
-      file { '/usr/local/outset/FoundationPlist':
-        ensure => directory,
-      }
-    }
-
     file {'/Library/LaunchAgents/com.github.outset.login.plist':
         owner  => root,
         group  => wheel,
