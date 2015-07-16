@@ -1,18 +1,8 @@
 # Setup manifest for installing Outset.
 class outset::setup{
-    file {'/Library/LaunchAgents/com.github.outset.login.plist':
-        owner  => root,
-        group  => wheel,
-        mode   => '0644',
-        source => 'puppet:///modules/outset/com.github.outset.login.plist'
-    }
-
-    file {'/Library/LaunchDaemons/com.github.outset.boot.plist':
-        owner  => root,
-        group  => wheel,
-        mode   => '0644',
-        source => 'puppet:///modules/outset/com.github.outset.boot.plist'
-    }
+    if $::osfamily != 'Darwin' {
+        fail("Unsupported osfamily: ${::osfamily}")
+      }
 
     if ! defined(File['/usr/local']) {
       file { '/usr/local':
@@ -56,13 +46,41 @@ class outset::setup{
       }
     }
 
+    if ! defined(File['/usr/local/outset/FoundationPlist']) {
+      file { '/usr/local/outset/FoundationPlist':
+        ensure => directory,
+      }
+    }
+
+    file {'/Library/LaunchAgents/com.github.outset.login.plist':
+        owner  => root,
+        group  => wheel,
+        mode   => '0644',
+        source => 'puppet:///modules/outset/com.github.outset.login.plist'
+    }
+
+    file {'/Library/LaunchDaemons/com.github.outset.boot.plist':
+        owner  => root,
+        group  => wheel,
+        mode   => '0644',
+        source => 'puppet:///modules/outset/com.github.outset.boot.plist'
+    }
+
     file{'/usr/local/outset/outset':
         owner  => root,
         group  => wheel,
         mode   => '0755',
         source => 'puppet:///modules/outset/outset'
     }
-    
+
+    file{'/usr/local/outset/FoundationPlist':
+        owner   => root,
+        group   => wheel,
+        mode    => '0755',
+        source  => 'puppet:///modules/outset/FoundationPlist',
+        recurse => true
+    }
+
     file{'/usr/local/outset/remove_once.sh':
         owner  => root,
         group  => wheel,
