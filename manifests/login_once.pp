@@ -23,7 +23,7 @@ define outset::login_once(
             owner  => 0,
             group  => 0,
             mode   => '0755',
-            if $update == true {
+            if $update == 'true' {
               notify => Exec['outset_remove_once'],
             }
         }
