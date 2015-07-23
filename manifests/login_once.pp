@@ -17,20 +17,27 @@ define outset::login_once(
     
     validate_bool ($update)
     
-    if $ensure == 'present'{
+    if ($ensure == 'present') and ($update == true){
         file {"/usr/local/outset/login-once/${priority}-${title}":
             source => $script,
             owner  => 0,
             group  => 0,
             mode   => '0755',
-            if $update == 'true' {
-              notify => Exec['outset_remove_once'],
-            }
+            notify => Exec["outset_remove_once_${title}"],
+        }
+    }
+    
+    if ($ensure == 'present') and ($update == false){
+        file {"/usr/local/outset/login-once/${priority}-${title}":
+            source => $script,
+            owner  => 0,
+            group  => 0,
+            mode   => '0755',
         }
     }
 
-    exec { 'outset_remove_once':
-      command     => "/usr/local/outset/remove_once.sh ${title}",
+    exec { "outset_remove_once_${title}":
+      command     => "/usr/local/outset/remove_once.sh ${priority}-${title}",
       refreshonly => true,
     }
 
