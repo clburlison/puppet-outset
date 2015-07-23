@@ -70,7 +70,7 @@ class outset::setup{
     file{'/usr/local/outset/FoundationPlist':
         owner   => root,
         group   => wheel,
-        mode    => '0755',
+        mode    => '0644',
         source  => 'puppet:///modules/outset/FoundationPlist',
         recurse => true
     }
