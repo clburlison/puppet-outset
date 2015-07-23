@@ -1,6 +1,6 @@
 # Manifest for easily adding firstboot packages.
 define outset::firstboot_package(
-    $script,
+    $pkg,
     $priority = '10',
     $ensure = 'present'
 ){
@@ -16,7 +16,7 @@ define outset::firstboot_package(
 
     if $ensure == 'present'{
         file {"/usr/local/outset/firstboot-packages/${priority}-${title}":
-            source => $script,
+            source => $pkg,
             owner  => 0,
             group  => 0,
             mode   => '0755',
