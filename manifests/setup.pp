@@ -56,8 +56,9 @@ class outset::setup{
     # This directory was removed with outset v1.0.3
     if ! defined(File['/usr/local/outset/everyboot-scripts']) {
       file { '/usr/local/outset/everyboot-scripts':
-        ensure => directory,
-        recurse => true
+        ensure  => directory,
+        recurse => true,
+        force   => true,
       }
     }
 
@@ -66,6 +67,7 @@ class outset::setup{
       file { '/usr/local/outset/firstboot-packages':
         ensure => absent,
         recurse => true,
+        force   => true,
       }
     }
 
@@ -74,6 +76,7 @@ class outset::setup{
       file { '/usr/local/outset/firstboot-scripts':
         ensure => absent,
         recurse => true,
+        force   => true,
       }
     }
 
