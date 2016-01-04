@@ -54,28 +54,28 @@ class outset::setup{
     }
 
     # This directory was removed with outset v1.0.3
-    # if ! defined(File['/usr/local/outset/everyboot-scripts']) {
-    #   file { '/usr/local/outset/everyboot-scripts':
-    #     ensure => directory,
-    #     recurse => true
-    #   }
-    # }
+    if ! defined(File['/usr/local/outset/everyboot-scripts']) {
+      file { '/usr/local/outset/everyboot-scripts':
+        ensure => directory,
+        recurse => true
+      }
+    }
 
     # This directory was removed with outset v1.0.3
-    # if ! defined(File['/usr/local/outset/firstboot-packages']) {
-    #   file { '/usr/local/outset/firstboot-packages':
-    #     ensure => absent,
-    #     recurse => true,
-    #   }
-    # }
+    if ! defined(File['/usr/local/outset/firstboot-packages']) {
+      file { '/usr/local/outset/firstboot-packages':
+        ensure => absent,
+        recurse => true,
+      }
+    }
 
     # This directory was removed with outset v1.0.3
-    # if ! defined(File['/usr/local/outset/firstboot-scripts']) {
-    #   file { '/usr/local/outset/firstboot-scripts':
-    #     ensure => absent,
-    #     recurse => true,
-    #   }
-    # }
+    if ! defined(File['/usr/local/outset/firstboot-scripts']) {
+      file { '/usr/local/outset/firstboot-scripts':
+        ensure => absent,
+        recurse => true,
+      }
+    }
 
     # Set Outset LaunchDaemons/Agent
     file {'/Library/LaunchDaemons/com.github.outset.boot.plist':
