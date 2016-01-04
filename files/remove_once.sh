@@ -7,7 +7,7 @@ do
 	then
 		if [ -d "${USER_HOME}"/Library/Preferences ]
 		then
-			/usr/bin/defaults delete "${USER_HOME}"/Library/Preferences/com.github.outset.once.plist /usr/local/outset/login-once/$1d
+			/usr/bin/defaults delete "${USER_HOME}"/Library/Preferences/com.github.outset.once.plist /usr/local/outset/login-once/$1
 			/usr/sbin/chown "${USER_UID}":admin "${USER_HOME}"/Library/Preferences/com.github.outset.once.plist
 		fi
 	fi

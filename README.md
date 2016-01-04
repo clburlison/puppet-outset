@@ -39,3 +39,11 @@ outset::login_once{'district_dock.sh':
 }
 
 ```
+
+## Why use this module?
+
+Graham Gilbert has an almost identical module located [here](https://github.com/grahamgilbert/puppet-outset/). The main benefits include:
+ 
+ * The update parameter for `login-once` scripts.
+ * This module installs outset along with giving you an easy way to add scripts.
+ * The launchd services are enabled with this module. As such a reboot to enable the daemons is not required.

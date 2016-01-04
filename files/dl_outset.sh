@@ -7,6 +7,6 @@ curl -sL -o ./outset.zip --connect-timeout 30 $(curl -s https://api.github.com/r
 unzip -o outset.zip
 rsync -a chilcote-outset-*/ ../
 cd ..
-rm -rf {$version,LuggageExample,Makefile,README.md}
+rm -rf {$version,LuggageExample,Makefile,README.md,postinstall}
 echo 'Finished'
 

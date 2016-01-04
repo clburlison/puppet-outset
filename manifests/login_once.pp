@@ -1,4 +1,4 @@
-# Manifest for easily adding login_once scripts.
+# Manifest for easily adding login-once scripts.
 define outset::login_once(
     $script,
     $priority = '10',
@@ -10,29 +10,35 @@ define outset::login_once(
     if $ensure != 'present' and $ensure !='absent'{
         fail('Invalid value for ensure')
     }
-    
-    if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
-        fail('Invalid value for title. Must end in .py, .sh or .rb')
-    }
-    
+
+    # No longer valid for outset v1.0.3
+    # if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
+    #     fail('Invalid value for title. Must end in .py, .sh or .rb')
+    # }
+
     validate_bool ($update)
     
-    if ($ensure == 'present') and ($update == true){
-        file {"/usr/local/outset/login-once/${priority}-${title}":
-            source => $script,
-            owner  => 0,
-            group  => 0,
-            mode   => '0755',
-            notify => Exec["outset_remove_once_${title}"],
+    if $ensure == 'present'{
+        if $type == 'file'{
+            file {"/usr/local/outset/login-once/${priority}-${title}":
+                source => $script,
+                owner  => root,
+                group  => wheel,
+                mode   => '0755',
+            }
         }
-    }
-    
-    if ($ensure == 'present') and ($update == false){
-        file {"/usr/local/outset/login-once/${priority}-${title}":
-            source => $script,
-            owner  => 0,
-            group  => 0,
-            mode   => '0755',
+
+        if $type == 'template'{
+            file {"/usr/local/outset/login-once/${priority}-${title}":
+                content => $script,
+                owner  => root,
+                group  => wheel,
+                mode   => '0755',
+            }
+        }
+        
+        if $update == true {
+          notify => Exec["outset_remove_once_${title}"]
         }
     }
 
