@@ -28,9 +28,9 @@ define outset::login_every(
         if $type == 'template'{
             file {"/usr/local/outset/login-every/${priority}-${title}":
                 content => $script,
-                owner  => root,
-                group  => wheel,
-                mode   => '0755',
+                owner   => root,
+                group   => wheel,
+                mode    => '0755',
             }
         }
     }

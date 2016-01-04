@@ -65,7 +65,7 @@ class outset::setup{
     # This directory was removed with outset v1.0.3
     if ! defined(File['/usr/local/outset/firstboot-packages']) {
       file { '/usr/local/outset/firstboot-packages':
-        ensure => absent,
+        ensure  => absent,
         recurse => true,
         force   => true,
       }
@@ -74,7 +74,7 @@ class outset::setup{
     # This directory was removed with outset v1.0.3
     if ! defined(File['/usr/local/outset/firstboot-scripts']) {
       file { '/usr/local/outset/firstboot-scripts':
-        ensure => absent,
+        ensure  => absent,
         recurse => true,
         force   => true,
       }
@@ -142,28 +142,28 @@ class outset::setup{
     
     # Start Outset launchd services
     service { 'com.github.outset.boot':
-        enable      => true,
-        ensure      => running,
-        provider    => 'launchd',
-        require     => [ File['/Library/LaunchDaemons/com.github.outset.boot.plist'] ],
+        enable   => true,
+        ensure   => running,
+        provider => 'launchd',
+        require  => [ File['/Library/LaunchDaemons/com.github.outset.boot.plist'] ],
     }
 
     service { 'com.github.outset.cleanup':
-        enable      => true,
-        ensure      => running,
-        provider    => 'launchd',
-        require     => [ File['/Library/LaunchDaemons/com.github.outset.cleanup.plist'] ],
+        enable   => true,
+        ensure   => running,
+        provider => 'launchd',
+        require  => [ File['/Library/LaunchDaemons/com.github.outset.cleanup.plist'] ],
     }
 
     service { 'com.github.outset.login':
-        enable      => true,
-        provider    => 'launchd',
-        require     => [ File['/Library/LaunchAgents/com.github.outset.login.plist'] ],
+        enable   => true,
+        provider => 'launchd',
+        require  => [ File['/Library/LaunchAgents/com.github.outset.login.plist'] ],
     }
 
     service { 'com.github.outset.on-demand':
-        enable      => true,
-        provider    => 'launchd',
-        require     => [ File['/Library/LaunchAgents/com.github.outset.on-demand.plist'] ],
+        enable   => true,
+        provider => 'launchd',
+        require  => [ File['/Library/LaunchAgents/com.github.outset.on-demand.plist'] ],
     }
 }

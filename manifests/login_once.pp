@@ -31,13 +31,13 @@ define outset::login_once(
         if $type == 'template'{
             file {"/usr/local/outset/login-once/${priority}-${title}":
                 content => $script,
-                owner  => root,
-                group  => wheel,
-                mode   => '0755',
+                owner   => root,
+                group   => wheel,
+                mode    => '0755',
             }
         }
         
-        if $update == true {
+        if ($update == true){
           notify => Exec["outset_remove_once_${title}"]
         }
     }
