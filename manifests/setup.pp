@@ -142,15 +142,15 @@ class outset::setup{
     
     # Start Outset launchd services
     service { 'com.github.outset.boot':
-        enable   => true,
         ensure   => running,
+        enable   => true,
         provider => 'launchd',
         require  => [ File['/Library/LaunchDaemons/com.github.outset.boot.plist'] ],
     }
 
     service { 'com.github.outset.cleanup':
-        enable   => true,
         ensure   => running,
+        enable   => true,
         provider => 'launchd',
         require  => [ File['/Library/LaunchDaemons/com.github.outset.cleanup.plist'] ],
     }
