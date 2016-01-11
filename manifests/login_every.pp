@@ -2,7 +2,8 @@
 define outset::login_every(
     $script,
     $priority = '10',
-    $ensure = 'present'
+    $ensure = 'present',
+    $type = 'file'
 ){
     require outset::setup
 

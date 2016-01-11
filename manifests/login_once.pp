@@ -3,7 +3,8 @@ define outset::login_once(
     $script,
     $priority = '10',
     $ensure = 'present',
-    $update = false,
+    $type = 'file',
+    $update = false
 ){
     require outset::setup
 
