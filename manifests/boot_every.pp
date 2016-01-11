@@ -2,7 +2,9 @@
 define outset::boot_every(
     $script,
     $priority = '10',
-    $ensure = 'present'
+    $ensure = 'present',
+    $type = 'file',
+    $immediate_run = false,
 ){
     require outset::setup
 
@@ -10,22 +12,49 @@ define outset::boot_every(
         fail('Invalid value for ensure')
     }
 
-    # No longer valid for outset v1.0.3
-    # if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
-    #     fail('Invalid value for title. Must end in .py, .sh or .rb')
-    # }
+    if versioncmp($outset_version, '1.0.3') == -1 {
+        if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
+            fail('Invalid value for title. Must end in .py, .sh or .rb')
+        }
+    }
+
+    if versioncmp($outset_version, '1.0.3') >= 0 {
+        # These were changed in 1.0.3
+        $target = '/usr/local/outset/boot-every'
+    } else {
+        $target = '/usr/local/outset/everyboot-scripts'
+    }
 
     if $ensure == 'present'{
-        file {"/usr/local/outset/boot-every/${priority}-${title}":
-            source => $script,
-            owner  => root,
-            group  => wheel,
-            mode   => '0755',
+        if $type == 'file'{
+            file {"${target}/${priority}-${title}":
+                source => $script,
+                owner  => root,
+                group  => wheel,
+                mode   => '0755',
+            }
+        }
+
+        if $type == 'template'{
+            file {"${target}/${priority}-${title}":
+                content => $script,
+                owner  => root,
+                group  => wheel,
+                mode   => '0755',
+            }
+        }
+
+        if $immediate_run == true {
+            exec { "${target}/${priority}-${title}":
+                path => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+                refreshonly => true,
+                subscribe => File["${target}/${priority}-${title}"],
+            }
         }
     }
 
     if $ensure == 'absent' {
-        file {"/usr/local/outset/boot-every/${priority}-${title}":
+        file {"${target}/${priority}-${title}":
             ensure => absent,
         }
     }
