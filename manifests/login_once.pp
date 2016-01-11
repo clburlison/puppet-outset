@@ -37,15 +37,22 @@ define outset::login_once(
             }
         }
         
-        if ($update == true){
-          notify => Exec["outset_remove_once_${title}"]
-        }
+        # if ($update == true){
+        #   notify => Exec["outset_remove_once_${title}"]
+        # }
     }
 
-    exec { "outset_remove_once_${title}":
-      command     => "/usr/local/outset/remove_once.sh ${priority}-${title}",
-      refreshonly => true,
+    if $update == true{
+      exec { "outset_remove_once_${title}":
+        command     => "/usr/local/outset/remove_once.sh ${priority}-${title}",
+        subscribe   => File["/usr/local/outset/login-once/${priority}-${title}"],
+      }
     }
+
+    # exec { "outset_remove_once_${title}":
+    #   command     => "/usr/local/outset/remove_once.sh ${priority}-${title}",
+    #   refreshonly => true,
+    # }
 
     if $ensure == 'absent' {
         file {"/usr/local/outset/login-once/${priority}-${title}":
