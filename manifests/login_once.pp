@@ -12,7 +12,7 @@ define outset::login_once(
         fail('Invalid value for ensure')
     }
 
-    # No longer valid for outset v1.0.3
+    # No longer valid for outset v2.0.0
     # if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
     #     fail('Invalid value for title. Must end in .py, .sh or .rb')
     # }
