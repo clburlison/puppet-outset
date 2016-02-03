@@ -10,7 +10,7 @@ Original project found here: [chilcote/outset](https://github.com/chilcote/outse
 Using a file distributed via pluginsync
 
 ``` puppet
-outset::everyboot{'disable_wifi.sh':
+outset::boot_every{'disable_wifi.sh':
     script => 'puppet:///modules/mac_base/disable_wifi/disable_wifi.sh'
 }
 ```
