@@ -12,19 +12,6 @@ define outset::boot_every(
         fail('Invalid value for ensure')
     }
 
-    if versioncmp($outset_version, '2.0.0') == -1 {
-        if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
-            fail('Invalid value for title. Must end in .py, .sh or .rb')
-        }
-    }
-
-    if versioncmp($outset_version, '2.0.0') >= 0 {
-        # These were changed in 2.0.0
-        $target = '/usr/local/outset/boot-every'
-    } else {
-        $target = '/usr/local/outset/everyboot-scripts'
-    }
-
     if $ensure == 'present'{
         if $type == 'file'{
             file {"${target}/${priority}-${title}":

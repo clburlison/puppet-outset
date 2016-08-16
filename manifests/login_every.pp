@@ -11,11 +11,6 @@ define outset::login_every(
         fail('Invalid value for ensure')
     }
 
-    # No longer valid for outset v2.0.0
-    # if $title !~ /^.*\.(|PY|py|sh|SH|rb|RB)$/ {
-    #     fail('Invalid value for title. Must end in .py, .sh or .rb')
-    # }
-
     if $ensure == 'present'{
         if $type == 'file'{
             file {"/usr/local/outset/login-every/${priority}-${title}":
