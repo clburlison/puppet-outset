@@ -1,5 +1,12 @@
 # Setup manifest for installing Outset.
-class outset::setup{
+#   network_timeout - integer 
+#   wait_for_network - bool
+#   ignored_users - array
+class outset::setup(
+    $network_timeout = 180,
+    $wait_for_network = true,
+    $ignored_users = [],
+){
     if $::osfamily != 'Darwin' {
         fail("Unsupported osfamily: ${::osfamily}")
       }
@@ -133,10 +140,11 @@ class outset::setup{
     }
     
     file{'/usr/local/outset/share/com.chilcote.outset.plist':
+        ensure  => present,
         owner   => root,
         group   => wheel,
         mode    => '0644',
-        source  => 'puppet:///modules/outset/com.chilcote.outset.plist',
+        content => template('outset/com.chilcote.outset.erb'),
         require => File['/usr/local/outset/share']
     }
     

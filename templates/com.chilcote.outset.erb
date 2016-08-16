@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>ignored_users</key>
+    <array><% if @ignored_users.kind_of?(Array) -%><% @ignored_users.each do |user| %>
+        <string><%= user -%></string><% end -%>
+<% end -%>
+
+    </array>
+    <key>network_timeout</key>
+    <integer><%= @network_timeout -%></integer>
+    <key>wait_for_network</key>
+    <% if @wait_for_network == true -%><true/><% else -%><false/><% end -%>
+
+</dict>
+</plist>
