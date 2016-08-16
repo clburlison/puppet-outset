@@ -21,7 +21,7 @@ Using a template, and a high priority value to make it run last (default is 10)
 outset::login_once{'dock.sh':
     script  => template('mac_base/dock/dock.sh.erb'),
     type    => 'template',
-    priorty => 99
+    priority => 99
 }
 
 ```
