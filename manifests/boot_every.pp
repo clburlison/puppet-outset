@@ -14,7 +14,7 @@ define outset::boot_every(
 
     if $ensure == 'present'{
         if $type == 'file'{
-            file {"${target}/${priority}-${title}":
+            file {"/usr/local/outset/boot-every/${priority}-${title}":
                 source => $script,
                 owner  => root,
                 group  => wheel,
@@ -23,7 +23,7 @@ define outset::boot_every(
         }
 
         if $type == 'template'{
-            file {"${target}/${priority}-${title}":
+            file {"/usr/local/outset/boot-every/${priority}-${title}":
                 content => $script,
                 owner  => root,
                 group  => wheel,
@@ -32,16 +32,16 @@ define outset::boot_every(
         }
 
         if $immediate_run == true {
-            exec { "${target}/${priority}-${title}":
+            exec { "/usr/local/outset/boot-every/${priority}-${title}":
                 path => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
                 refreshonly => true,
-                subscribe => File["${target}/${priority}-${title}"],
+                subscribe => File["/usr/local/outset/boot-every/${priority}-${title}"],
             }
         }
     }
 
     if $ensure == 'absent' {
-        file {"${target}/${priority}-${title}":
+        file {"/usr/local/outset/boot-every/${priority}-${title}":
             ensure => absent,
         }
     }
